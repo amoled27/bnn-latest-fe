@@ -1,0 +1,54 @@
+    img.bulbon {
+        width: 100px;
+    }
+
+    img.bulboff {
+        width: 65px;
+        padding: 21px 5px 0px 18px;
+    }
+
+    span.on-bulb {
+        padding: 2px 9px 0px 9px;
+        background: #39e4a5;
+        border-radius: 4px;
+    }
+
+    span.off-bulb {
+        padding: 2px 9px 0px 9px;
+        background: #e44d39;
+        border-radius: 4px;
+    }
+
+    mat-slide-toggle {
+        padding: 10px;
+    }
+
+    :host /deep/ {
+        mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+            background-color: #f6bd5d;
+        }
+
+        .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+            background-color: rgba(246, 188, 93, 0.62);
+        }
+    }
+
+    span.imei {
+        padding: 2px 9px 0px 9px;
+        background: #f6bc5d;
+        border-radius: 4px;
+    }
+
+    .mt-p3 {
+        margin-top: 0.3em;
+    }
+
+    .mt-1 {
+        margin-top: 1em;
+    }
+
+    .btn {
+        background: #f6bc5d;
+        padding: 0.5em 1.6em 0.5em 1.6em;
+        margin-bottom: 7px;
+    }

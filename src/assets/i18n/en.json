@@ -1,0 +1,27 @@
+{
+   "ENGLISH":"ENGLISH",
+  "HOME": "Home",
+  "APPS": "Apps",
+  "CALENDAR": "Calendar",
+  "MESSAGES": "Messages",
+  "WIDGETS": "Widgets",
+  "MATERIAL": "Material",
+  "MAPS": "Maps",
+  "USER": "User",
+  "ADVISOR": {
+    "BOOK":{
+      "TITLE": "Book"
+    },
+    "ADVISOR": {
+      "TITLE": "Advisor"
+    },
+    "BOOK_APPOINTMENT":{
+      "TITLE": "Book Appointment"
+    },
+  "Add_USER":{
+    "ADD_USER_DIALOG":{
+      "TITLE":"Add Advisor"
+    }
+  }
+}
+}

@@ -1,0 +1,27 @@
+{
+  "ENGLISH":"ENGLESH",
+  "HOME": "Tableau de bord",
+  "APPS": "Apps",
+  "CALENDAR": "Calendrier",
+  "MESSAGES": "Messages",
+  "WIDGETS": "Widgets",
+  "MATERIAL": "Matériel",
+  "MAPS": "Cartes",
+  "USER": "Utilisateur",
+"ADVISOR": {
+  "BOOK": {
+    "TITLE": "Book"
+  },
+  "ADVISOR": {
+    "TITLE": "Advisor"
+  },
+  "BOOK_APPOINTMENT": {
+    "TITLE": "Book Appointment"
+  },
+  "Add_USER": {
+    "ADD_USER_DIALOG": {
+      "TITLE": "Add Advisor"
+    }
+  }
+}
+}

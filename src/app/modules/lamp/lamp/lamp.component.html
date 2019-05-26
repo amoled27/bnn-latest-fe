@@ -1,0 +1,110 @@
+<div fxLayout="row" class="top-x">
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="30">
+      <h2>Lamps</h2>
+    </div>
+  </div>
+
+</div>
+<div fxLayout="row">
+
+  <div fxLayout="row" fxLayoutAlign="start">
+    <div fxFlex="30">
+      <button mat-button class="btn" (click)="openAddLampDialog()"> Add Lamp</button>
+    </div>
+  </div>
+
+</div>
+<div fxLayout="row" fxLayoutGap="10px">
+
+  <div fxFlex="50">
+    <ngx-datatable [rows]="lampList" class="material" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
+      [rowHeight]="'auto'" (activate)="onActivate($event)">
+      <ngx-datatable-column name="IMEI" [flexGrow]="1" style="line-height: 36px;">
+        <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+          {{row?.imei}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Site Name" [flexGrow]="1" style="line-height: 36px;">
+        <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+          {{row?.siteName}}          
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Status" [flexGrow]="1" style="line-height: 36px;">
+        <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+          <span *ngIf="row?.status" class="on-bulb">ON</span> <span class="off-bulb" *ngIf="!row?.status">OFF</span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      </ngx-datatable>
+  </div>
+  <div fxFlex="50">
+    <mat-card style="margin-bottom: 12px;">
+      <div fxLayout="row" fxLayoutAlign="end">
+        <div fxFlex="80">
+          IMEI: <span class="imei">{{currentImei}}</span>
+        </div>
+        <div fxFlex="20">
+          Status: <span *ngIf="isSwitchedOn" class="on-bulb">ON</span> <span class="off-bulb" *ngIf="!isSwitchedOn">OFF</span>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div fxLayout="row">
+        <div fxFlex="30">
+          <img *ngIf="isSwitchedOn" class="bulbon" src="assets/images/glowing.png" alt="on">
+          <img *ngIf="!isSwitchedOn" class="bulboff" src="assets/images/offbulb.png" alt="off">
+          <br>
+          <mat-slide-toggle [(ngModel)]="isSwitchedOn">Switch</mat-slide-toggle>
+        </div>
+        <div fxFlex="70">
+          <div fxLayout="row" class="mt-p3">
+            <div fxFlex="50">
+              <strong>Name:</strong> Device-aa
+            </div>
+            <div fxFlex="50">
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px" class="mt-p3">
+            <div fxFlex="50">
+              <strong>Site Name:</strong> {{currentSite}}
+            </div>
+            <div fxFlex="50">
+              <strong>Group:</strong> 5AD
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px" class="mt-p3">
+            <div fxFlex="50">
+              <strong>Current Vol.:</strong> {{currentVoltage}}
+            </div>
+            <div fxFlex="50">
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px" class="mt-1">
+            <div fxFlex="50">
+              <strong>Last Updated:</strong>
+            </div>
+            <div fxFlex="50">
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px" class="mt-p3">
+            <div fxFlex="50">
+              <strong>Date:</strong>
+              05-05-2019
+            </div>
+            <div fxFlex="50">
+              <strong>Time:</strong>
+                22:30h
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

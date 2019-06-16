@@ -115,7 +115,7 @@
           <strong>Intensity :</strong>
         </div>
         <div fxFlex="50">
-          <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="3" max="10" [(ngModel)]="currentVoltage" (change)="voltageChange()">
+          <mat-slider thumbLabel tickInterval="1" min="3" max="10" [(ngModel)]="currentVoltage" (change)="voltageChange()">
           </mat-slider>
           <!-- <button mat-button class="btn" (click)="setVoltage()"> Submit</button> -->
           <i class="material-icons" (click)="setVoltage()"  [ngStyle]="{'background': enableBtn ? '#20a084' : 'rgb(166, 168, 170)'}">

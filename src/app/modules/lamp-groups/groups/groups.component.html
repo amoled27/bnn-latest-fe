@@ -37,7 +37,7 @@
     <div class="lamps intensity">
       <h3>Group Voltage</h3>
       <div class="intens">
-        <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="3" max="10" [(ngModel)]="recentVoltage"
+        <mat-slider thumbLabel tickInterval="1" min="3" max="10" [(ngModel)]="recentVoltage"
           (change)="voltageChange()">
         </mat-slider>
         <i class="material-icons" (click)="setVoltage()"

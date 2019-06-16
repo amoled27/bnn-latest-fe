@@ -1,7 +1,7 @@
 <div fxLayout="row" class="top-x">
 
   <div fxLayout="row" fxLayoutAlign="center center">
-    <div fxFlex="30">
+    <div fxFlex="30" class="hdr">
       <h2>Lamps</h2>
     </div>
   </div>
@@ -29,26 +29,28 @@
 
       <ngx-datatable-column name="Site Name" [flexGrow]="1" style="line-height: 36px;">
         <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
-          {{row?.siteName}}          
+          {{row?.siteName}}
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Status" [flexGrow]="1" style="line-height: 36px;">
         <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
-          <span *ngIf="row?.status" class="on-bulb">ON</span> <span class="off-bulb" *ngIf="!row?.status">OFF</span>
+          <span *ngIf="row?.isDeviceOn" class="on-bulb">ON</span> <span class="off-bulb"
+            *ngIf="!row?.isDeviceOn">OFF</span>
         </ng-template>
       </ngx-datatable-column>
 
-      </ngx-datatable>
+    </ngx-datatable>
   </div>
-  <div fxFlex="50">
+  <div fxFlex="50" *ngIf="lampList.length">
     <mat-card style="margin-bottom: 12px;">
       <div fxLayout="row" fxLayoutAlign="end">
         <div fxFlex="80">
           IMEI: <span class="imei">{{currentImei}}</span>
         </div>
         <div fxFlex="20">
-          Status: <span *ngIf="isSwitchedOn" class="on-bulb">ON</span> <span class="off-bulb" *ngIf="!isSwitchedOn">OFF</span>
+          Status: <span *ngIf="isSwitchedOn" class="on-bulb">ON</span> <span class="off-bulb"
+            *ngIf="!isSwitchedOn">OFF</span>
         </div>
       </div>
     </mat-card>
@@ -58,12 +60,12 @@
           <img *ngIf="isSwitchedOn" class="bulbon" src="assets/images/glowing.png" alt="on">
           <img *ngIf="!isSwitchedOn" class="bulboff" src="assets/images/offbulb.png" alt="off">
           <br>
-          <mat-slide-toggle [(ngModel)]="isSwitchedOn">Switch</mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="isSwitchedOn" (click)="toggleSwitch($event)">Switch</mat-slide-toggle>
         </div>
         <div fxFlex="70">
           <div fxLayout="row" class="mt-p3">
             <div fxFlex="50">
-              <strong>Name:</strong> Device-aa
+              <strong>Name:</strong> 
             </div>
             <div fxFlex="50">
             </div>
@@ -100,9 +102,25 @@
             </div>
             <div fxFlex="50">
               <strong>Time:</strong>
-                22:30h
+              22:30h
             </div>
           </div>
+        </div>
+      </div>
+      
+    </mat-card>
+    <mat-card class="intensity">
+      <div fxLayout="row">
+        <div fxFlex="20" style="margin-top: 12px">
+          <strong>Intensity :</strong>
+        </div>
+        <div fxFlex="50">
+          <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="3" max="10" [(ngModel)]="currentVoltage" (change)="voltageChange()">
+          </mat-slider>
+          <!-- <button mat-button class="btn" (click)="setVoltage()"> Submit</button> -->
+          <i class="material-icons" (click)="setVoltage()"  [ngStyle]="{'background': enableBtn ? '#20a084' : 'rgb(166, 168, 170)'}">
+            done
+          </i>
         </div>
       </div>
     </mat-card>

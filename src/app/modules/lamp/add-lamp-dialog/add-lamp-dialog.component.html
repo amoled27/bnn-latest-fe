@@ -25,6 +25,33 @@
     </div>
   </div>
 
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxFlex="50">
+      <mat-form-field color="accent" style="width: 100%" fxFlex="90">
+        <input matInput formControlName="poleId" type="text" #poleid placeholder="Enter PoleId" [required]="true" />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50">
+      <mat-form-field color="accent" style="width: 100%" fxFlex="90">
+        <input matInput formControlName="bnnId" type="text" #firstname placeholder="BNN ID" [required]="true" />
+      </mat-form-field>
+    </div>
+  
+    <div fxFlex="50">
+      <mat-form-field>
+        <mat-label>Group</mat-label>
+        <mat-select formControlName="groupId">
+          <mat-option *ngFor="let group of groups" [value]="group.name" (click)="onSelectGroup(group)">
+            {{group.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50">
+  
+    </div>
+  </div>
+
   <div fxLayout="row">
     <div fxFlex="100" fxLayoutAlign="end">
       <button mat-button class="btn" (click)="addLamp()"> Add Lamp</button>

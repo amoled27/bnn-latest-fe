@@ -9,6 +9,18 @@ const routes: Routes = [
   {
     path: 'lamps',
     loadChildren: './modules/lamp/lamp.module#LampModule'
+  },
+  {
+    path: 'groups',
+    loadChildren: './modules/lamp-groups/lamp-groups.module#LampGroupsModule'
+  },
+  {
+    path: 'area',
+    loadChildren: './modules/area/area.module#AreaModule'
+  },
+  {
+    path: 'utility',
+    loadChildren: './modules/utility/utility.module#UtilityModule'
   }
 ];
 

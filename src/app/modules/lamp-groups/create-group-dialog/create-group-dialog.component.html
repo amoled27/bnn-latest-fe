@@ -1,0 +1,29 @@
+<form [formGroup]="form">
+  <div>
+    <h3>Create a Group</h3>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxFlex="50">
+      <mat-form-field color="accent" style="width: 100%" fxFlex="90">
+        <input matInput formControlName="name" type="text" #firstname placeholder="Group Name" [required]="true" />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50">
+      <mat-form-field>
+        <mat-label>Area</mat-label>
+        <mat-select formControlName="areaId" >
+          <mat-option  *ngFor="let area of areas" [value]="area.areaShortName" (click)="selectedArea(area)">
+            {{area.areaShortName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <div fxFlex="100" fxLayoutAlign="end">
+      <button mat-button class="btn" (click)="addGroup()">Create Group</button>
+    </div>
+  </div>
+</form>

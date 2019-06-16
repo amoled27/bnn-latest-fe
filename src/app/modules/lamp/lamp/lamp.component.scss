@@ -49,6 +49,50 @@
 
     .btn {
         background: #f6bc5d;
-        padding: 0.5em 1.6em 0.5em 1.6em;
+        padding: 0em 1.8em;
         margin-bottom: 7px;
+    }
+
+    .intensity {
+
+        margin-top: 10px;
+
+        mat-slider {
+            padding-top: 0px;
+            height: 60px;
+        }
+
+        i {
+            // background: #20a084;
+            padding: 4px;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 13px;
+        }
+    }
+
+
+    ::ng-deep .mat-accent .mat-slider-thumb {
+        background-color: #f6bc5d;
+    }
+
+    ::ng-deep .mat-accent .mat-slider-thumb-label {
+        background-color: #f6bc5d;
+    }
+
+    ::ng-deep .mat-accent .mat-slider-track-fill {
+        background-color: #f6bc5d;
+    }
+
+    ::ng-deep .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb,
+    .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+        background-color: #f6bc5d;
+    }
+
+    .hdr h2 {
+        text-align: end;
+        color: #fff;
+        padding-left: 1em;
+        font-size: 29px;
     }

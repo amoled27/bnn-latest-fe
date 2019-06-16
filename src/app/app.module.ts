@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './modules/shared/material/material.module';
 import { SharedModule } from './modules/shared/shared.module';
+import 'hammerjs';
 
 
 @NgModule({

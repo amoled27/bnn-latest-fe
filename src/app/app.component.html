@@ -29,7 +29,15 @@
         <i class="fa fa-bolt"></i>
         <span>Lamps</span>
       </mat-list-item>
-      <mat-list-item  class="navbar-item">
+      <mat-list-item [routerLink]="['groups']" routerLinkActive="active" class="navbar-item">
+        <i class="fa fa-users"></i>
+        <span>Groups</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['area']" class="navbar-item">
+        <i class="fa fa-map-marker"></i>
+        <span fxFlex="50">Areas</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['utility']" class="navbar-item">
         <i class="fa fa-cog"></i>
         <span fxFlex="50">Utility</span>
       </mat-list-item>

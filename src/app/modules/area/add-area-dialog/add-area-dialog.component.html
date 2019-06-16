@@ -1,0 +1,24 @@
+<form [formGroup]="form">
+  <div>
+    <h3>Add Area</h3>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <div fxFlex="50">
+      <mat-form-field color="accent" style="width: 100%" fxFlex="90">
+        <input matInput formControlName="name" type="text" #firstname placeholder="Area Name" [required]="true" />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50">
+      <mat-form-field color="accent" style="width: 100%" fxFlex="90">
+        <input matInput formControlName="areaShortName" type="text" #firstname placeholder="Area Shortname" [required]="true" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <div fxFlex="100" fxLayoutAlign="end">
+      <button mat-button class="btn" (click)="addArea()">Add Area</button>
+    </div>
+  </div>
+</form>

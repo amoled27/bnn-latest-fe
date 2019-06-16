@@ -1,0 +1,86 @@
+<div fxLayout="row" class="top-x">
+
+  <div fxFlex="50" class="hdr">
+    <h2>Lamp Groups</h2>
+  </div>
+</div>
+<div fxLayout="row">
+
+  <div fxLayout="row" fxLayoutAlign="start">
+    <div fxFlex="30">
+      <button mat-button class="btn" (click)="onCreateGroupDialog()"> Create a Group</button>
+    </div>
+  </div>
+
+</div>
+
+<div fxLayout="row" fxLayoutGap="5px">
+  <div fxFlex="30">
+    <div class="groupsList">
+      <h3>Groups</h3>
+    </div>
+    <ngx-datatable [rows]="groupList" class="material" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
+      [rowHeight]="'auto'" (activate)="onActivate($event)">
+      <ngx-datatable-column name="Group Name" [flexGrow]="1" style="line-height: 36px;">
+        <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+          {{row?.name}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Area ID" [flexGrow]="1" style="line-height: 36px;">
+        <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+          {{row?.areaId.areaShortName}}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+  <div fxFlex="70">
+    <div class="lamps intensity">
+      <h3>Group Voltage</h3>
+      <div class="intens">
+        <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="3" max="10" [(ngModel)]="recentVoltage"
+          (change)="voltageChange()">
+        </mat-slider>
+        <i class="material-icons" (click)="setVoltage()"
+          [ngStyle]="{'background': enableBtn ? '#20a084' : 'rgb(166, 168, 170)'}">
+          done
+        </i>
+      </div>
+    </div>
+    <div class="lamps lamps2">
+      <h3>Lamps</h3>
+    </div>
+
+    <div class="hideList" *ngIf="!showLamps">
+      <button mat-button class="btn" (click)="showLampList()"> Show Lamplist</button>
+    </div>
+    <div *ngIf="showLamps">
+      <ngx-datatable [rows]="lampList" class="material" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
+        [rowHeight]="'auto'" (activate)="onActivate($event.row)">
+        <ngx-datatable-column name="BNN ID" [flexGrow]="1" style="line-height: 36px;">
+          <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+            {{row?.bnnId}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="IMEI" [flexGrow]="1" style="line-height: 36px;">
+          <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+            {{row?.imei}}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Site Name" [flexGrow]="1" style="line-height: 36px;">
+          <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+            {{row?.siteName}}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Status" [flexGrow]="1" style="line-height: 36px;">
+          <ng-template style="margin-top:8px" let-row="row" ngx-datatable-cell-template>
+            <span *ngIf="row?.isDeviceOn" class="on-bulb">ON</span> <span class="off-bulb"
+              *ngIf="!row?.isDeviceOn">OFF</span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+
+</div>

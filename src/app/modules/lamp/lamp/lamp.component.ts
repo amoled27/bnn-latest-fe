@@ -18,35 +18,12 @@ export class LampComponent implements OnInit {
   addLampDialog: MatDialogRef<AddLampDialogComponent>;
   enableBtn: boolean = false;
   currentDeviceName: any;
+  currentRow: any;
   constructor(public dialog: MatDialog, private lampService: LampService) {
   }
 
   ngOnInit() {
     this.getLampList();
-    this.lampList = [{
-      imei: 12323237748,
-      siteName: 'MH-Andheri',
-      voltage: '20v',
-      status: true
-    },
-    {
-      imei: 873237928392,
-      siteName: 'MH-Andheri',
-      voltage: '25v',
-      status: false
-    },
-    {
-      imei: 12323274849,
-      siteName: 'MH-Vashi',
-      voltage: '21v',
-      status: true
-    },
-    {
-      imei: 9902379283752,
-      siteName: 'MH-Pune',
-      voltage: '20v',
-      status: true
-    }]
   }
 
   onActivate(e) {
@@ -57,6 +34,7 @@ export class LampComponent implements OnInit {
      this.currentSite = row.siteName;
      this.currentVoltage = row.voltage;
      this.currentDeviceName = row.name
+     this.currentRow = row;
    }
   }
 
@@ -78,6 +56,7 @@ export class LampComponent implements OnInit {
   getLampList() {
     this.lampService.getAllDevices().subscribe((response: any) => {
       this.lampList = response.device;
+      console.log(response.device);
       this.onActivate(this.lampList[0]);
     });
   }
@@ -104,6 +83,7 @@ export class LampComponent implements OnInit {
       if (lamp.imei === imei) {
         if (voltage) {
           this.lampList[i].voltage = voltage;
+        }
           this.lampList[i].isDeviceOn = toggleStatus ? 1 : 0;
           this.lampService.updateDevice(imei, this.lampList[i]).subscribe((response: any) => {
             // if (response.status == 201 || response.status == 200) {
@@ -114,7 +94,6 @@ export class LampComponent implements OnInit {
             this.enableBtn = false;
             // }
           });
-        }
       }
     });
    

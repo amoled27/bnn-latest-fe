@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApplicationUrls } from '../shared/application-urls';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,20 @@ import { HttpClient } from '@angular/common/http';
 export class AreaService {
   constructor(private http: HttpClient) { }
 
+  createAuthorizationHeader(headers: HttpHeaders) {
+    return headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  }
+
   addArea(areadata: any) {
     areadata = JSON.stringify(areadata);
-    return this.http.post(ApplicationUrls.area.addArea, areadata).pipe();
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.http.post(ApplicationUrls.area.addArea, areadata, { headers: headers }).pipe();
   }
 
   getAllAreas() {
-    return this.http.get(ApplicationUrls.area.getAllAreas).pipe();
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.http.get(ApplicationUrls.area.getAllAreas, { headers: headers }).pipe();
   }
 }

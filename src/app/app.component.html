@@ -1,7 +1,7 @@
-<mat-sidenav-container class="app-sidenav-container">
+<mat-sidenav-container class="app-sidenav-container" [ngClass]="{loginbg: !(loggredInUser && token)}">
   <!-- !isScreenSmall() -->
-  <mat-sidenav #sidenav class="app-sidenav " [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side'">
-
+  <mat-sidenav #sidenav class="app-sidenav " [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side'"
+    *ngIf="loggredInUser && token">
     <div fxLayout="column" fxLayoutAlign="center center"
       style="background-image: url('../assets/images/header-profile.png')" fxLayoutGap="10px">
       <a mat-button routerLinkActive="active" class="MoHdn">
@@ -46,6 +46,21 @@
 
 
   <mat-sidenav-content>
+    <mat-toolbar *ngIf="loggredInUser && token">
+      <!-- <div fxFlex="row" fxLayoutAlign="end">
+        <div>
+          <img class="userr" src="https://centrik.in/wp-content/uploads/2017/02/user-image-.png" alt="">
+            <mat-select>
+              <mat-option (click)="logout()">
+                logout
+              </mat-option>
+            </mat-select>
+        </div>
+      </div> -->
+      <div fxFlex="row" fxLayoutAlign="end">
+      <button mat-button class="logout" (click)="logout()">Logout</button>
+      </div>
+    </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 

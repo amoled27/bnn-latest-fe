@@ -12,8 +12,14 @@ export class LampService {
   // .set('Content-Type', 'application/json');
   constructor(private http: HttpClient) { }
 
+  createAuthorizationHeader(headers: HttpHeaders) {
+    return headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  }
+
   getAllDevices() {
-    return this.http.get(ApplicationUrls.device.getAllDevices).pipe();
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.http.get(ApplicationUrls.device.getAllDevices, { headers: headers }).pipe();
   }
 
   getOneDevice(deviceImei) {
@@ -26,15 +32,21 @@ export class LampService {
   }
 
   deleteDevice(imei) {
-    return this.http.delete(ApplicationUrls.device.deleteDevice + '/' + imei).pipe();
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.http.delete(ApplicationUrls.device.deleteDevice + '/' + imei, { headers: headers }).pipe();
   }
 
   addDevice(data) {
     data = JSON.stringify(data);
-    return this.http.post(ApplicationUrls.device.addDevice, data).pipe();
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.http.post(ApplicationUrls.device.addDevice, data, { headers: headers }).pipe();
   }
 
   getDeviceByGroupId(id) {
-    return this.http.get(ApplicationUrls.device.deviceByGroupId + '/' + id).pipe();
+    let headers = new HttpHeaders();
+    headers = this.createAuthorizationHeader(headers);
+    return this.http.get(ApplicationUrls.device.deviceByGroupId + '/' + id, { headers: headers }).pipe();
   }
 }

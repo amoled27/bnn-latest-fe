@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './modules/shared/material/material.module';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { SharedModule } from './modules/shared/shared.module';
+import { AuthGuardService } from "./guards/auth-guard.service";
 import 'hammerjs';
 
 
@@ -23,7 +25,7 @@ import 'hammerjs';
     MaterialModule,
     SharedModule
   ],
-  providers: [],
+  providers: [JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

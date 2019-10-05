@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatSidenav } from '@angular/material';
+import { AuthService } from './services/auth.service';
 const SMALL_WIDTH_BREAKPOINT = 720;
 @Component({
   selector: 'app-root',
@@ -17,10 +18,21 @@ export class AppComponent {
   dir = 'ltr';
   user: any;
   selectedLanguage;
+  token: any;
+  loggredInUser: any;
+
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   constructor(zone: NgZone,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private authService: AuthService) { 
+      this.authService.getLoginFlag().subscribe ((logindata) => {
+        if (logindata) {
+          this.token = localStorage.getItem('token');
+          this.loggredInUser = localStorage.getItem('loggeduser');
+        }
+      });
+    }
 
   ngOnInit() {
     this.router.events.subscribe(() => {
@@ -28,6 +40,8 @@ export class AppComponent {
         this.sidenav.close();
       }
     });
+    this.token = localStorage.getItem('token');
+    this.loggredInUser = localStorage.getItem('loggeduser');
   }
 
   isScreenSmall(): boolean {
@@ -36,5 +50,15 @@ export class AppComponent {
   toggleDir() {
     this.dir = this.dir === 'ltr' ? 'rtl' : 'ltr';
     this.sidenav.toggle().then(() => this.sidenav.toggle());
+  }
+  logout() {
+    localStorage.setItem('loggeduser', '');
+    localStorage.setItem('token', '');
+    this.token = null;
+    this.loggredInUser = null;
+    this.authService.setLoginFlag(false);
+    setTimeout(() => {
+      this.router.navigate(['login']);
+    }, 300);
   }
 }

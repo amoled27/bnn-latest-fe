@@ -26,5 +26,8 @@ export const ApplicationUrls = {
         getAllGroups: envUrlAppends.groups + '/allgroups',
         addGroup: envUrlAppends.groups + '/addgroup',
         setGroupVoltage: envUrlAppends.groups + '/setgroupvoltage'
+    },
+    auth: {
+        login: envUrlAppends.auth + '/login'
     }
 }

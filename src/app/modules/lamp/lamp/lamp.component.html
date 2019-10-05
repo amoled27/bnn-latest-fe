@@ -39,10 +39,9 @@
             *ngIf="!row?.isDeviceOn">OFF</span>
         </ng-template>
       </ngx-datatable-column>
-
     </ngx-datatable>
   </div>
-  <div fxFlex="50" *ngIf="lampList.length">
+  <div fxFlex="50" *ngIf="lampList.length && currentRow">
     <mat-card style="margin-bottom: 12px;">
       <div fxLayout="row" fxLayoutAlign="end">
         <div fxFlex="80">
@@ -65,7 +64,7 @@
         <div fxFlex="70">
           <div fxLayout="row" class="mt-p3">
             <div fxFlex="50">
-              <strong>Name:</strong> 
+              <strong>Name:</strong> {{currentRow?.name}} 
             </div>
             <div fxFlex="50">
             </div>
@@ -76,7 +75,7 @@
               <strong>Site Name:</strong> {{currentSite}}
             </div>
             <div fxFlex="50">
-              <strong>Group:</strong> 5AD
+              <strong>Group:</strong> {{currentRow?.groupId?.name}}
             </div>
           </div>
 
@@ -98,12 +97,13 @@
           <div fxLayout="row" fxLayoutGap="10px" class="mt-p3">
             <div fxFlex="50">
               <strong>Date:</strong>
-              05-05-2019
+              {{currentRow?.updatedAt | date: 'dd/MM/yyyy'}}
             </div>
             <div fxFlex="50">
               <strong>Time:</strong>
-              22:30h
+              {{currentRow?.updatedAt | date: 'HH:mm'}}
             </div>
+
           </div>
         </div>
       </div>

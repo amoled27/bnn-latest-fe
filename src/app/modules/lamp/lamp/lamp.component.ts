@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { AddLampDialogComponent } from '../add-lamp-dialog/add-lamp-dialog.component';
 import { LampService } from 'src/app/services/lamp.service';
 import Swal from 'sweetalert2';
+import { EditLampComponent } from '../edit-lamp/edit-lamp.component';
 
 @Component({
   selector: 'app-lamp',
@@ -16,6 +17,7 @@ export class LampComponent implements OnInit {
   currentSite: any;
   currentVoltage: any;
   addLampDialog: MatDialogRef<AddLampDialogComponent>;
+  editLampDialog: MatDialogRef<EditLampComponent>;
   enableBtn: boolean = false;
   currentDeviceName: any;
   currentRow: any;
@@ -28,14 +30,14 @@ export class LampComponent implements OnInit {
 
   onActivate(e) {
     let row = e.row;
-   if (row && e.type=='click') {
-     this.isSwitchedOn = row.isDeviceOn;
-     this.currentImei = row.imei;
-     this.currentSite = row.siteName;
-     this.currentVoltage = row.voltage;
-     this.currentDeviceName = row.name
-     this.currentRow = row;
-   }
+    if (row && e.type == 'click') {
+      this.isSwitchedOn = row.isDeviceOn;
+      this.currentImei = row.imei;
+      this.currentSite = row.siteName;
+      this.currentVoltage = row.voltage;
+      this.currentDeviceName = row.name
+      this.currentRow = row;
+    }
   }
 
   openAddLampDialog() {
@@ -46,6 +48,17 @@ export class LampComponent implements OnInit {
         data.groupId = res.groupId;
         this.lampService.addDevice(data).subscribe((resp: any) => {
           console.log(resp);
+          if (resp.status && resp.status == 201) {
+            Swal.fire({
+              type: 'success',
+              title: 'Device Added!'
+            });
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Device adding failed! Try Again'
+            });
+          }
           this.lampList.push(resp.device);
           this.lampList = [...this.lampList]
         });
@@ -84,23 +97,61 @@ export class LampComponent implements OnInit {
         if (voltage) {
           this.lampList[i].voltage = voltage;
         }
-          this.lampList[i].isDeviceOn = toggleStatus ? 1 : 0;
-          this.lampService.updateDevice(imei, this.lampList[i]).subscribe((response: any) => {
-            // if (response.status == 201 || response.status == 200) {
-            Swal.fire({
-              type: 'success',
-              title: 'Action successful!'
-            });
-            this.enableBtn = false;
-            // }
+        this.lampList[i].isDeviceOn = toggleStatus ? 1 : 0;
+        this.lampService.updateDevice(imei, this.lampList[i]).subscribe((response: any) => {
+          // if (response.status == 201 || response.status == 200) {
+          Swal.fire({
+            type: 'success',
+            title: 'Action successful!'
           });
+          this.enableBtn = false;
+          // }
+        });
       }
     });
-   
-   
+
+
   }
 
   voltageChange() {
-   this.enableBtn = true;
+    this.enableBtn = true;
+  }
+
+  deleteRow(row) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You are about to delete ${row.name}  with imei: ${row.imei} and pole id: ${row.poleId}`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.value) {
+        let delImei = row._id;
+        this.lampService.deleteDevice(delImei).subscribe((res: any) => {
+          if (res.status && res.status === 200) {
+            let data = this.lampList.map(el => el._id);
+            let kindex = data.findIndex(e => { return e === delImei });
+            let lamplst = this.lampList;
+            lamplst.splice(kindex, 1);
+            this.lampList = [...lamplst];
+            Swal.fire(
+              'Deleted!'
+            )
+          } else {
+            Swal.fire(
+              'Delete Failed!'
+            )
+          }
+        });
+
+      }
+    });
+  }
+  editRow(row) {
+    this.editLampDialog = this.dialog.open(EditLampComponent, {
+      data: row
+    });
   }
 }

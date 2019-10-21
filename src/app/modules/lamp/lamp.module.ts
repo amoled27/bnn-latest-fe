@@ -5,6 +5,7 @@ import { MaterialModule } from '../shared/material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { AddLampDialogComponent } from './add-lamp-dialog/add-lamp-dialog.component';
+import { EditLampComponent } from './edit-lamp/edit-lamp.component';
 
 const lamp: Routes = [
   {
@@ -13,7 +14,7 @@ const lamp: Routes = [
   }
 ];
 @NgModule({
-  declarations: [LampComponent, AddLampDialogComponent],
+  declarations: [LampComponent, AddLampDialogComponent, EditLampComponent],
   imports: [
     MaterialModule,
     SharedModule,
@@ -24,7 +25,8 @@ const lamp: Routes = [
     RouterModule
   ],
   entryComponents: [
-    AddLampDialogComponent
+    AddLampDialogComponent,
+    EditLampComponent
   ]
 })
 export class LampModule { }

@@ -7,20 +7,19 @@ import { LampService } from 'src/app/services/lamp.service';
 @Component({
   selector: 'app-edit-lamp',
   templateUrl: './edit-lamp.component.html',
-  styleUrls: ['./edit-lamp.component.sass']
+  styleUrls: ['./edit-lamp.component.scss']
 })
 export class EditLampComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditLampComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private groupService: GroupService, private lampService: LampService) { }
-    form: FormGroup;
-    groups: any = [];
-    selectedGroupId: any;
-    lampList;
+  form: FormGroup;
+  groups: any = [];
+  selectedGroupId: any;
+  lampList;
   ngOnInit() {
-    this.buildForm();
-    this.getData();
     this.getGroups();
+    this.buildForm();
   }
 
   buildForm() {
@@ -39,14 +38,19 @@ export class EditLampComponent implements OnInit {
     console.log(this.data, 'dataa');
     let stattus = this.data.isDeviceOn ? true : false;
     let formData = {
-      'name':  this.data.name,
+      'name': this.data.name,
       'imei': this.data.imei,
       'siteName': this.data.siteName,
-      'voltage':  this.data.voltage,
-      'status':  stattus || false,
+      'voltage': this.data.voltage,
+      'status': stattus || false,
       'bnnId': this.data.bnnId,
       'poleId': this.data.poleId || '',
-      'groupId':  this.data.groupId,
+      'groupId': this.data.groupId.name ? this.data.groupId.name : ''
+    };
+    this.selectedGroupId = this.data.groupId;
+    let gName = this.groups.find(r => { if (r._id === this.data.groupId) { return r.name } });
+    if (gName) {
+      formData.groupId = gName.name;
     }
     this.form.setValue(formData);
     // this.form.value.name =e;
@@ -61,7 +65,17 @@ export class EditLampComponent implements OnInit {
   getGroups() {
     this.groupService.getGroups().subscribe((res: any) => {
       this.groups = res.groups;
+      this.getData();
     });
   }
-  onSelectGroup(group){}
+  onSelectGroup(group) {
+    this.selectedGroupId = group._id;
+  }
+  saveData() {
+    let data = {
+      formData : this.form.value,
+      groupId : this.selectedGroupId
+    }
+    this.dialogRef.close(data);
+  }
 }

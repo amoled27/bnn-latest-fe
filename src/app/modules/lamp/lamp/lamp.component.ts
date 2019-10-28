@@ -60,7 +60,7 @@ export class LampComponent implements OnInit {
             });
           }
           this.lampList.push(resp.device);
-          this.lampList = [...this.lampList]
+          this.lampList = [...this.lampList];
         });
       }
     });
@@ -153,5 +153,24 @@ export class LampComponent implements OnInit {
     this.editLampDialog = this.dialog.open(EditLampComponent, {
       data: row
     });
+    this.editLampDialog.afterClosed().subscribe(res => {
+      if (res) {
+        let dataEdit = res.formData;
+        dataEdit['groupId'] = res.groupId;
+        this.lampService.updateDevice(dataEdit.imei, dataEdit).subscribe((r: any) => {
+          let device = r.device;
+          if (device) {
+            this.lampList.forEach((resp, count, arr) => {
+              if (resp._id === device._id) {
+                this.lampList[count] = device;
+                this.lampList = [...this.lampList];
+              }
+            })
+          }
+          Swal.fire(
+            'updated!')
+        });
+      }
+    })
   }
 }
